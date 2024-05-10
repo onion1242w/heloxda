@@ -70,8 +70,10 @@ end
 local function LoopAttack(TimeToTarget : number)
     local TimeC = tick() + TimeToTarget
     while tick() < TimeC and Player.Character and CurrentFruitModel do
-        CurrentFruitModel.ten:FireServer()
-        task.wait(0.3)
+        if Player.Character.Humanoid.Health > 0 then
+            CurrentFruitModel.ten:FireServer()
+        end
+        task.wait(0.1)
     end
 end
 
@@ -124,10 +126,6 @@ local AFarmVal = MainTab:Toggle({
 
 task.spawn(function()
     while task.wait() do
-        -- Fruit Selected
-        if Player.Character then
-            CurrentFruitModel = FindEquippedFruit()
-        end
         -- AutoFarm
         if AFarmVal:getValue() and Player.Character then
             for i, v in pairs(Players:GetChildren()) do
@@ -141,6 +139,14 @@ task.spawn(function()
                     end
                 end
             end
+        end
+    end
+end)
+
+task.spawn(function()
+    while task.wait() do
+        if Player.Character then
+            CurrentFruitModel = FindEquippedFruit()
         end
     end
 end)
