@@ -24,7 +24,7 @@ local CurrentFruitModel = nil
 local function SpawnShips(Count : number)
     for i = 1, Count do
         MarketplaceService:SignalPromptProductPurchaseFinished(Player.UserId, 1717407738, true)
-        task.wait(0.4)
+        task.wait(1.3)
     end
 end
 
