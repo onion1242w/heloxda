@@ -149,7 +149,9 @@ end)
 task.spawn(function()
     while task.wait() do
         if Player.Character then
-            CurrentFruitModel = FindEquippedFruit()
+            if Player.Character:FindFirstChild("Humanoid") then
+                CurrentFruitModel = FindEquippedFruit()
+            end
         end
     end
 end)
