@@ -55,26 +55,23 @@ local function FindEquippedFruit()
     return nil -- nothing found return nil
 end
 
-local function LoopTargetYield(TarChar : Model, TimeToTarget : number)
-    local TimeC = tick() + TimeToTarget
-    repeat
-        if Player.Character and TarChar and CurrentFruitModel then
+local function TargetUntilDeath(TarChar : Model)
+    local m1Tick = tick()
+    local m1CD = 0.05
+    while TarChar and CurrentFruitModel and Player.Character do
+        if TarChar.Humanoid.Health > 0 and Player.Character.Parent ~= nil then -- Until our death or targets death
             if TarChar:FindFirstChild("Torso") then
                 local BackPos = TarChar.Torso.Position + (-TarChar.Torso.CFrame.LookVector * 3.5)
                 Player.Character:PivotTo(CFrame.new(BackPos, TarChar.Torso.Position))
             end
+            if tick() > m1Tick + m1CD then
+                m1Tick = tick()
+                CurrentFruitModel.ten:FireServer()
+            end
+        else
+            break
         end
         task.wait()
-    until (tick() > TimeC)
-end
-
-local function LoopAttack(TimeToTarget : number)
-    local TimeC = tick() + TimeToTarget
-    while tick() < TimeC and Player.Character and CurrentFruitModel and Player.Character.Parent ~= nil do
-        if Player.Character.Humanoid.Health > 0 and CurrentFruitModel then
-            CurrentFruitModel.ten:FireServer()
-        end
-        task.wait(0.1)
     end
 end
 
@@ -133,10 +130,7 @@ task.spawn(function()
                 if not (v == Player) and AFarmVal:getValue() then
                     local CharPlr = v.Character
                     if CharPlr then
-                        local TimeToTarget = 1.3
-                        task.spawn(LoopTargetYield, CharPlr, TimeToTarget)
-                        task.spawn(LoopAttack, TimeToTarget)
-                        task.wait(TimeToTarget)
+                        TargetUntilDeath(CharPlr)
                     end
                 end
             end
