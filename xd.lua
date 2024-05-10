@@ -17,7 +17,7 @@ local MainTab = MainButton:Section("Main", "Left")
 
 -- // Config \\ --
 
--- laterrr
+local CurrentFruitModel = nil
 
 -- // Functions \\ --
 
@@ -58,7 +58,7 @@ end
 local function TargetUntilDeath(TarChar : Model)
     local m1Tick = tick()
     local m1CD = 0.05
-    while TarChar and Player.Character do
+    while TarChar and CurrentFruitModel and Player.Character do
         if TarChar:FindFirstChild("Humanoid") then
             if TarChar.Humanoid.Health > 0 and Player.Character.Parent ~= nil then -- Until our death or targets death
                 if TarChar:FindFirstChild("Torso") then
@@ -67,10 +67,7 @@ local function TargetUntilDeath(TarChar : Model)
                 end
                 if tick() > m1Tick + m1CD then
                     m1Tick = tick()
-                    local CurrentFruitModel = FindEquippedFruit()
-                    if CurrentFruitModel then
-                        CurrentFruitModel.ten:FireServer()
-                    end
+                    CurrentFruitModel.ten:FireServer()
                 end
             else
                 break
@@ -140,6 +137,16 @@ task.spawn(function()
                         TargetUntilDeath(CharPlr)
                     end
                 end
+            end
+        end
+    end
+end)
+
+task.spawn(function()
+    while task.wait() do
+        if Player.Character then
+            if Player.Character:FindFirstChild("Humanoid") then
+                CurrentFruitModel = FindEquippedFruit()
             end
         end
     end
