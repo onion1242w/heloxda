@@ -38,8 +38,11 @@ local function GodMode()
 end
 
 local function FindFruitInInventory(FruitName : string)
-    local Fru = Player.Backpack:FindFirstChild(FruitName) or Player.Character:FindFirstChild(FruitName)
-    return Fru
+    if Player.Character.Humanoid.Health > 0 then
+        local Fru = Player.Backpack:FindFirstChild(FruitName) or Player.Character:FindFirstChild(FruitName)
+        return Fru
+    end
+    return nil
 end
 
 local function FindEquippedFruit()
@@ -59,7 +62,7 @@ local function LoopTargetYield(TarChar : Model, TimeToTarget : number)
     repeat
         if Player.Character and TarChar and CurrentFruitModel then
             if TarChar:FindFirstChild("Torso") then
-                local BackPos = TarChar.Torso.Position + (TarChar.Torso.CFrame.LookVector * 0.8)
+                local BackPos = TarChar.Torso.Position + (-TarChar.Torso.CFrame.LookVector * 3.5)
                 Player.Character:PivotTo(CFrame.new(BackPos, TarChar.Torso.Position))
             end
         end
@@ -70,7 +73,7 @@ end
 local function LoopAttack(TimeToTarget : number)
     local TimeC = tick() + TimeToTarget
     while tick() < TimeC and Player.Character and CurrentFruitModel do
-        if Player.Character.Humanoid.Health > 0 then
+        if Player.Character.Humanoid.Health > 0 and CurrentFruitModel then
             CurrentFruitModel.ten:FireServer()
         end
         task.wait(0.1)
