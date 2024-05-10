@@ -130,7 +130,7 @@ task.spawn(function()
         end
         -- AutoFarm
         if AFarmVal:getValue() and Player.Character then
-            for i, v in pairs(Players:GetPlayers()) do
+            for i, v in pairs(Players:GetChildren()) do
                 if not (v == Player) and AFarmVal:getValue() then
                     local CharPlr = v.Character
                     if CharPlr then
