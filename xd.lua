@@ -19,7 +19,7 @@ local MainTab = MainButton:Section("Main", "Left")
 local function SpawnShips(Count : number)
     task.defer(function()
         for i = 1, Count do
-            MarketplaceService:SignalPromptProductPurchaseFinished(game.Players.LocalPlayer.UserId, 1717407738, true)
+            MarketplaceService:SignalPromptProductPurchaseFinished(Player.UserId, 1717407738, true)
             task.wait(0.4)
         end
     end)
@@ -46,6 +46,7 @@ MainTab:Button({
     }, 
     function(v)
         local ShipVal = sliderVal:getValue()
+        print("spawnnship")
         SpawnShips(ShipVal)
     end
 )
