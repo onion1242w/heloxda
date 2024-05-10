@@ -6,6 +6,7 @@ local UILib = loadstring(game:HttpGet('https://raw.githubusercontent.com/StepBro
 local Player = game.Players.LocalPlayer
 
 local MarketplaceService = game:GetService("MarketplaceService")
+local Players = game:GetService("Players")
 
 local Window = UILib.new("Blox fruits but bad v0.0.1", Player.UserId, "!!")
 local Category = Window:Category("Main", "http://www.roblox.com/asset/?id=8395621517")
