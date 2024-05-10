@@ -17,7 +17,7 @@ local MainTab = MainButton:Section("Main", "Left")
 -- // Functions \\ --
 
 local function SpawnShips(Count : number)
-    task.defer(function()
+    task.spawn(function()
         for i = 1, Count do
             MarketplaceService:SignalPromptProductPurchaseFinished(Player.UserId, 1717407738, true)
             task.wait(0.4)
