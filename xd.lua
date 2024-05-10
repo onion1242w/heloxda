@@ -136,7 +136,7 @@ task.spawn(function()
                     if CharPlr then
                         local TimeToTarget = 1.3
                         task.spawn(LoopTargetYield, CharPlr, TimeToTarget)
-                        task.spawn(LoopAttack, Title)
+                        task.spawn(LoopAttack, TimeToTarget)
                         task.wait(TimeToTarget)
                     end
                 end
