@@ -70,7 +70,7 @@ end
 
 local function LoopAttack(TimeToTarget : number)
     local TimeC = tick() + TimeToTarget
-    while tick() < TimeC and Player.Character and CurrentFruitModel do
+    while tick() < TimeC and Player.Character and CurrentFruitModel and Player.Character.Parent ~= nil do
         if Player.Character.Humanoid.Health > 0 and CurrentFruitModel then
             CurrentFruitModel.ten:FireServer()
         end
