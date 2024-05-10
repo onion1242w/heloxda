@@ -1,6 +1,5 @@
 --loadstring(game:HttpGet('https://raw.githubusercontent.com/onion1242w/whatidk/main/whadudhell.lua'))()
--- 1717407738
---game:GetService("MarketplaceService"):SignalPromptProductPurchaseFinished(game.Players.LocalPlayer.UserId, 1717407738, true)
+--loadstring(game:HttpGet('https://raw.githubusercontent.com/onion1242w/heloxda/main/xd.lua'))()
 
 local UILib = loadstring(game:HttpGet('https://raw.githubusercontent.com/StepBroFurious/Script/main/HydraHubUi.lua'))()
 
@@ -26,9 +25,9 @@ end
 -- // UI \\ --
 
 local sliderVal = MainTab:Slider({
-        Title = "Pirate ship spam",
+        Title = "Ship spam",
         Description = "",
-        Default = 16,
+        Default = 2,
         Min = 1,
         Max = 15
     }, 
