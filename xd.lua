@@ -59,14 +59,18 @@ local function TargetUntilDeath(TarChar : Model)
     local m1Tick = tick()
     local m1CD = 0.05
     while TarChar and CurrentFruitModel and Player.Character do
-        if TarChar.Humanoid.Health > 0 and Player.Character.Parent ~= nil then -- Until our death or targets death
-            if TarChar:FindFirstChild("Torso") then
-                local BackPos = TarChar.Torso.Position + (-TarChar.Torso.CFrame.LookVector * 3.5)
-                Player.Character:PivotTo(CFrame.new(BackPos, TarChar.Torso.Position))
-            end
-            if tick() > m1Tick + m1CD then
-                m1Tick = tick()
-                CurrentFruitModel.ten:FireServer()
+        if TarChar:FindFirstChild("Humanoid") then
+            if TarChar.Humanoid.Health > 0 and Player.Character.Parent ~= nil then -- Until our death or targets death
+                if TarChar:FindFirstChild("Torso") then
+                    local BackPos = TarChar.Torso.Position + (-TarChar.Torso.CFrame.LookVector * 3.5)
+                    Player.Character:PivotTo(CFrame.new(BackPos, TarChar.Torso.Position))
+                end
+                if tick() > m1Tick + m1CD then
+                    m1Tick = tick()
+                    CurrentFruitModel.ten:FireServer()
+                end
+            else
+                break
             end
         else
             break
