@@ -72,12 +72,12 @@ task.spawn(function()
 end)
 
 task.spawn(function()
-    while task.wait(0.5) do
+    while task.wait(0.1) do
         if AFarmVal:getValue() then
             for i, v in pairs(Players:GetChildren()) do
                 if v.Character then
                     PunchHim(v.Character)
-                    task.wait()
+                    task.wait(0.05)
                 end
             end
         end
