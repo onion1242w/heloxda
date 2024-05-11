@@ -53,14 +53,15 @@ local function UpgradeHitbox(Multiplier)
 end
 
 local function PunchHim(TargetChar)
-    local args = {
-        [1] = TargetChar, -- Target Model
-        [2] = TargetChar:GetPivot().Position, -- Prolly mouse position or our char position
-        [3] = 12.274284362792969, -- idk whats this (maybe hitbox size???)
-        [4] = TargetChar.Torso -- Target Part
-    }
-    print("punchwow")
-    RemoteEvents.Punch:FireServer(unpack(args))
+    if TargetChar:FindFirstChild("Torso") then
+        local args = {
+            [1] = TargetChar, -- Target Model
+            [2] = TargetChar:GetPivot().Position, -- Efect position
+            [3] = 12.274284362792969, -- idk whats this (maybe hitbox size???)
+            [4] = TargetChar.Torso -- Target Part
+        }
+        RemoteEvents.Punch:FireServer(unpack(args))
+    end
 end
 
 -- // Loops \\ --
@@ -72,7 +73,7 @@ task.spawn(function()
 end)
 
 task.spawn(function()
-    while task.wait(0.1) do
+    while task.wait(0.2) do
         if AFarmVal:getValue() then
             for i, v in pairs(Players:GetChildren()) do
                 if v.Character then
