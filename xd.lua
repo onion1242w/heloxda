@@ -60,7 +60,7 @@ end
 
 local function TargetUntilDeath(TarChar : Model)
     local m1Tick = tick()
-    local m1CD = 0.2
+    local m1CD = 0.305
     while TarChar and CurrentFruitModel and Player.Character do
         if TarChar:FindFirstChild("Humanoid") then
             if TarChar.Humanoid.Health > 0 and Player.Character.Parent ~= nil and Player.Character.Humanoid.Health > 0 then -- Until our death or targets death
