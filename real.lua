@@ -72,13 +72,14 @@ task.spawn(function()
 end)
 
 task.spawn(function()
-    while AFarmVal:getValue() do
-        for i, v in pairs(Players:GetChildren()) do
-            if v.Character then
-                PunchHim(v.Character)
-                task.wait()
+    while task.wait(0.5) do
+        if AFarmVal:getValue() then
+            for i, v in pairs(Players:GetChildren()) do
+                if v.Character then
+                    PunchHim(v.Character)
+                    task.wait()
+                end
             end
         end
-        task.wait(0.5)
     end
 end)
