@@ -68,7 +68,7 @@ local function TargetUntilDeath(TarChar : Model)
                     local BackPos = TarChar.Torso.Position + (-TarChar.Torso.CFrame.LookVector * 3.5)
                     Player.Character:PivotTo(CFrame.new(BackPos, TarChar.Torso.Position))
                 end
-                if tick() > m1Tick + m1CD and AntiCdValue.Value < 2 then
+                if (tick()) > (m1Tick + m1CD) and AntiCdValue.Value <= 1 then
                     m1Tick = tick()
                     CurrentFruitModel.ten:FireServer()
                 end
