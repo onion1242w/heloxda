@@ -63,7 +63,7 @@ local function TargetUntilDeath(TarChar : Model)
     local m1CD = 0.2
     while TarChar and CurrentFruitModel and Player.Character do
         if TarChar:FindFirstChild("Humanoid") then
-            if TarChar.Humanoid.Health > 0 and Player.Character.Parent ~= nil then -- Until our death or targets death
+            if TarChar.Humanoid.Health > 0 and Player.Character.Parent ~= nil and Player.Character.Humanoid.Health > 0 then -- Until our death or targets death
                 if TarChar:FindFirstChild("Torso") then
                     local BackPos = TarChar.Torso.Position + (-TarChar.Torso.CFrame.LookVector * 3.5)
                     Player.Character:PivotTo(CFrame.new(BackPos, TarChar.Torso.Position))
