@@ -15,6 +15,8 @@ local MainButton = Category:Button("Main", "http://www.roblox.com/asset/?id=8395
 
 local MainTab = MainButton:Section("Main", "Left")
 
+local RemoteEvents = game:GetService("ReplicatedStorage"):WaitForChild("Remote Events")
+
 -- // Ui \\ --
 
 local HitboxMul = MainTab:Slider({
@@ -29,6 +31,16 @@ local HitboxMul = MainTab:Slider({
     end
 )
 
+local AFarmVal = MainTab:Toggle({
+        Title = "Auto Farm Players",
+        Description = "",
+        Default = false
+    },
+    function(v)
+        -- Nothing
+    end
+)
+
 -- // Functions \\ --
 
 local ClassicHitboxSize = 1.5
@@ -40,10 +52,33 @@ local function UpgradeHitbox(Multiplier)
     end
 end
 
+local function PunchHim(TargetChar)
+    if not TargetChar:FindFirstChild("Torso") then return end
+    local args = {
+        [1] = TargetChar, -- Target Model
+        [2] = Vector3.new(0, 0, 0), -- Prolly mouse position or our char position
+        [3] = 12.274284362792969, -- idk whats this (maybe hitbox size???)
+        [4] = TargetChar.Torso -- Target Part
+    }
+    RemoteEvents.Punch:FireServer(unpack(args))
+end
+
 -- // Loops \\ --
 
 task.spawn(function()
     while task.wait() do
         UpgradeHitbox(HitboxMul:getValue())
+    end
+end)
+
+task.spawn(function()
+    while task.wait() do
+        for i, v in pairs(Players:GetChildren()) do
+            if v.Character then
+                PunchHim(v.Character)
+                task.wait()
+            end
+        end
+        task.wait(0.5)
     end
 end)
