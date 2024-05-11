@@ -43,5 +43,7 @@ end
 -- // Loops \\ --
 
 task.spawn(function()
-    UpgradeHitbox(HitboxMul:getValue())
+    while task.wait() do
+        UpgradeHitbox(HitboxMul:getValue())
+    end
 end)
