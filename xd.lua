@@ -1,5 +1,7 @@
 --loadstring(game:HttpGet('https://raw.githubusercontent.com/onion1242w/whatidk/main/whadudhell.lua'))()
 --loadstring(game:HttpGet('https://raw.githubusercontent.com/onion1242w/heloxda/main/xd.lua'))()
+--loadstring(game:HttpGet("https://raw.githubusercontent.com/dyyll/Dex-V5-leak/main/Dex%20V5.lua"))()
+-- dex
 
 local UILib = loadstring(game:HttpGet('https://raw.githubusercontent.com/StepBroFurious/Script/main/HydraHubUi.lua'))()
 
@@ -57,7 +59,7 @@ end
 
 local function TargetUntilDeath(TarChar : Model)
     local m1Tick = tick()
-    local m1CD = 0.05
+    local m1CD = 0.34
     while TarChar and CurrentFruitModel and Player.Character do
         if TarChar:FindFirstChild("Humanoid") then
             if TarChar.Humanoid.Health > 0 and Player.Character.Parent ~= nil then -- Until our death or targets death
