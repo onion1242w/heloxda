@@ -53,13 +53,13 @@ local function UpgradeHitbox(Multiplier)
 end
 
 local function PunchHim(TargetChar)
-    if not TargetChar:FindFirstChild("Torso") then return end
     local args = {
         [1] = TargetChar, -- Target Model
-        [2] = Vector3.new(0, 0, 0), -- Prolly mouse position or our char position
+        [2] = TargetChar:GetPivot().Position, -- Prolly mouse position or our char position
         [3] = 12.274284362792969, -- idk whats this (maybe hitbox size???)
         [4] = TargetChar.Torso -- Target Part
     }
+    print("punchwow")
     RemoteEvents.Punch:FireServer(unpack(args))
 end
 
