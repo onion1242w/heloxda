@@ -13,10 +13,6 @@ local Player = game.Players.LocalPlayer
 local MutlipMonsters = workspace.Monsters.Multiple
 local SingleMonsters = workspace.Monsters.One
 
-local PlasmaGun = RepStor.GamepassGuns["Plasma Gun"]
-
-local TargetGun = "USP"
-
 local Window = UILib.new("Survive in Area 51 Remake v0.0.1", Player.UserId, "!!")
 local Category = Window:Category("Main", "http://www.roblox.com/asset/?id=8395621517")
 
@@ -29,7 +25,15 @@ local KillAllMobsButton
 -- // Functions \\ --
 
 local function FoundGun()
-    local TarFoundGun = Player.Backpack:FindFirstChild(TargetGun) or Player.Character:FindFirstChild(TargetGun)
+    -- Guns will probably have InflictTarget remote (not sure)
+    local TarFoundGun = nil
+
+    local TarToolBackpack = Player.Backpack:FindFirstChild("InflictTarget", true)
+    local CharFoundGunRemote = Player.Character:FindFirstChild("InflictTarget", true)
+
+    TarFoundGun = TarToolBackpack and TarToolBackpack:FindFirstAncestorWhichIsA("Tool") or TarFoundGun
+    TarFoundGun = CharFoundGunRemote and CharFoundGunRemote:FindFirstAncestorWhichIsA("Tool") or TarFoundGun
+
     return TarFoundGun
 end
 
@@ -39,10 +43,10 @@ local function KillTarget(TargetModel : Model)
         local RootProbably = Human.Torso
         if RootProbably then
             while task.wait() do
-                --local CurrentGun = FoundGun()
-                if TargetModel:FindFirstChild("Humanoid") then
+                local CurrentGun = FoundGun()
+                if CurrentGun and TargetModel:FindFirstChild("Humanoid") then
                     if TargetModel.Humanoid.Health > 0 then
-                        PlasmaGun.GunScript_Server.InflictTarget:FireServer(RootProbably.Name, Human, RootProbably, PlasmaGun, Vector3.new(-0.13287943601608276, -0.226749986410141, -0.9648458957672119))
+                        CurrentGun.GunScript_Server.InflictTarget:FireServer(RootProbably.Name, Human, RootProbably, CurrentGun, Vector3.new(-0.13287943601608276, -0.226749986410141, -0.9648458957672119))
                     else
                         break
                     end
