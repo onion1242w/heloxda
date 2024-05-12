@@ -56,10 +56,20 @@ local function KillTarget(TargetModel : Model)
 end
 
 local function KillAllMobs()
-    for i, v in pairs(workspace:GetDescendants()) do
-        if v:IsA("Humanoid") then
-            if v.Health > 0 then
-                task.defer(KillTarget, v.Parent)
+    for i, v in pairs(SingleMonsters:GetChildren()) do
+        if v:FindFirstChild("Humanoid") then
+            if v.Humanoid.Health > 0 then
+                task.defer(KillTarget, v)
+            end
+        end
+    end
+
+    for _, v in pairs(MutlipMonsters:GetChildren()) do
+        for i, Monster in pairs(v:GetChildren()) do
+            if Monster:FindFirstChild("Humanoid") then
+                if v.Humanoid.Health > 0 then
+                    task.defer(KillTarget, v)
+                end
             end
         end
     end
@@ -67,21 +77,36 @@ end
 
 local AuraTargetedAlready = {}
 
+local function KillAuraExtra(v)
+    if not AuraTargetedAlready[v.Parent] then
+        local CFTar = v.Parent:GetPivot()
+        local MyCf = Player.Character:GetPivot()
+        local Mag = (CFTar.Position - MyCf.Position).Magnitude
+        if Mag <= Range and v.Health > 0 then
+            local DiedConn
+            AuraTargetedAlready[v.Parent] = true
+            task.defer(KillTarget, v.Parent)
+            DiedConn = v.Died:Connect(function()
+                AuraTargetedAlready[v.Parent] = nil
+                DiedConn:Disconnect()
+            end)
+        end
+    end
+end
+
 local function KillNpcsInRange(Range : number)
     if not Player.Character then return end
-    for i, v in pairs(workspace:GetDescendants()) do
-        if v:IsA("Humanoid") then
-            local CFTar = v.Parent:GetPivot()
-            local MyCf = Player.Character:GetPivot()
-            local Mag = (CFTar.Position - MyCf.Position).Magnitude
-            if Mag <= Range and v.Health > 0 and not AuraTargetedAlready[v.Parent] then
-                local DiedConn
-                AuraTargetedAlready[v.Parent] = true
-                task.defer(KillTarget, v.Parent)
-                DiedConn = v.Died:Connect(function()
-                    AuraTargetedAlready[v.Parent] = nil
-                    DiedConn:Disconnect()
-                end)
+
+    for i, v in pairs(SingleMonsters:GetChildren()) do
+        if v:FindFirstChild("Humanoid") then
+            KillAuraExtra(v.Humanoid)
+        end
+    end
+
+    for _, v in pairs(MutlipMonsters:GetChildren()) do
+        for i, Monster in pairs(v:GetChildren()) do
+            if Monster:FindFirstChild("Humanoid") then
+                KillAuraExtra(Monster.Humanoid)
             end
         end
     end
