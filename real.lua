@@ -143,7 +143,7 @@ KillAuraRange = MainTab:Slider({
         Description = "Range of killaura.",
         Default = 16,
         Min = 1,
-        Max = 160
+        Max = 20000
     }, 
     function()
         -- nothing
