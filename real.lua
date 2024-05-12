@@ -37,7 +37,7 @@ local function KillTarget(TargetModel : Model)
             while TargetModel.Humanoid.Health > 0 do
                 local CurrentGun = FoundGun()
                 if CurrentGun then
-                    CurrentGun.GunScript_Server.InflictTarget:FireServer("Torso", TargetModel.Human, RootProbably, CurrentGun, Vector3.new(-0.13287943601608276, -0.226749986410141, -0.9648458957672119))
+                    CurrentGun.GunScript_Server.InflictTarget:FireServer(RootProbably.Name, Human, RootProbably, CurrentGun, Vector3.new(-0.13287943601608276, -0.226749986410141, -0.9648458957672119))
                 end
                 task.wait()
             end
