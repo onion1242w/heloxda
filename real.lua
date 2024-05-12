@@ -34,12 +34,17 @@ local function KillTarget(TargetModel : Model)
     if Player.Character and Human then
         local RootProbably = Human.Torso
         if RootProbably then
-            while TargetModel.Humanoid.Health > 0 do
+            while task.wait() do
                 local CurrentGun = FoundGun()
-                if CurrentGun then
-                    CurrentGun.GunScript_Server.InflictTarget:FireServer(RootProbably.Name, Human, RootProbably, CurrentGun, Vector3.new(-0.13287943601608276, -0.226749986410141, -0.9648458957672119))
+                if CurrentGun and TargetModel:FindFirstChild("Humanoid") then
+                    if TargetModel.Humanoid.Health > 0 then
+                        CurrentGun.GunScript_Server.InflictTarget:FireServer(RootProbably.Name, Human, RootProbably, CurrentGun, Vector3.new(-0.13287943601608276, -0.226749986410141, -0.9648458957672119))
+                    else
+                        break
+                    end
+                else
+                    break
                 end
-                task.wait()
             end
         end
     end
@@ -63,7 +68,7 @@ end
 KillAllMobsButton = MainTab:Button({
         Title = "Kill All Npcs",
         Description = "",
-        ButtonName = "kill..."
+        ButtonName = "KILL THEM"
     },
     KillAllMobs
 )
