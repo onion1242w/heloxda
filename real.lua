@@ -97,7 +97,7 @@ KillAllMobsButton = MainTab:Button({
     KillAllMobs
 )
 
-KillAuraToggle = Section1:Toggle({
+KillAuraToggle = MainTab:Toggle({
         Title = "Kill Aura",
         Description = "Change range for cooler killaura",
         Default = false
@@ -107,7 +107,7 @@ KillAuraToggle = Section1:Toggle({
     end
 )
 
-KillAuraRange = Section1:Slider({
+KillAuraRange = MainTab:Slider({
         Title = "Kill Aura Range",
         Description = "Range of killaura.",
         Default = 16,
