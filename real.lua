@@ -6,10 +6,14 @@
 local UILib = loadstring(game:HttpGet('https://raw.githubusercontent.com/StepBroFurious/Script/main/HydraHubUi.lua'))()
 
 local Players = game:GetService("Players")
+local RepStor = game:GetService("ReplicatedStorage")
+
 local Player = game.Players.LocalPlayer
 
 local MutlipMonsters = workspace.Monsters.Multiple
 local SingleMonsters = workspace.Monsters.One
+
+local PlasmaGun = RepStor.GamepassGuns["Plasma Gun"]
 
 local TargetGun = "USP"
 
@@ -35,10 +39,10 @@ local function KillTarget(TargetModel : Model)
         local RootProbably = Human.Torso
         if RootProbably then
             while task.wait() do
-                local CurrentGun = FoundGun()
-                if CurrentGun and TargetModel:FindFirstChild("Humanoid") then
+                --local CurrentGun = FoundGun()
+                if TargetModel:FindFirstChild("Humanoid") then
                     if TargetModel.Humanoid.Health > 0 then
-                        CurrentGun.GunScript_Server.InflictTarget:FireServer(RootProbably.Name, Human, RootProbably, CurrentGun, Vector3.new(-0.13287943601608276, -0.226749986410141, -0.9648458957672119))
+                        PlasmaGun.GunScript_Server.InflictTarget:FireServer(RootProbably.Name, Human, RootProbably, PlasmaGun, Vector3.new(-0.13287943601608276, -0.226749986410141, -0.9648458957672119))
                     else
                         break
                     end
