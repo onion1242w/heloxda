@@ -48,12 +48,12 @@ end
 local function KillAllMobs()
     for i, v in pairs(MutlipMonsters:GetChildren()) do
         for _, Monster in pairs(v:GetChildren()) do
-            KillTarget(Monster)
+            task.defer(KillTarget, Monster)
             task.wait()
         end
     end
     for i, Monster in pairs(SingleMonsters:GetChildren()) do
-        KillTarget(Monster)
+        task.defer(KillTarget, Monster)
         task.wait()
     end
 end
