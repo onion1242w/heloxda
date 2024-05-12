@@ -2,6 +2,7 @@
 -- loadstring(game:HttpGet("https://raw.githubusercontent.com/onion1242w/heloxda/main/real.lua"))()
 -- dex
 -- loadstring(game:HttpGet("https://pastebin.com/raw/ZLfF3qa0"))()
+-- simple spy loadstring(game:HttpGetAsync("https://raw.githubusercontent.com/78n/SimpleSpy/main/SimpleSpySource.lua"))()
 
 local UILib = loadstring(game:HttpGet('https://raw.githubusercontent.com/StepBroFurious/Script/main/HydraHubUi.lua'))()
 
@@ -21,6 +22,8 @@ local MainButton = Category:Button("Main", "http://www.roblox.com/asset/?id=8395
 local MainTab = MainButton:Section("Main", "Left")
 
 local KillAllMobsButton
+local KillAuraToggle
+local KillAuraRange
 
 -- // Functions \\ --
 
@@ -44,33 +47,44 @@ local function KillTarget(TargetModel : Model)
         if RootProbably then
             while task.wait() do
                 local CurrentGun = FoundGun()
-                if CurrentGun and TargetModel:FindFirstChild("Humanoid") then
-                    if TargetModel.Humanoid.Health > 0 then
-                        CurrentGun.GunScript_Server.InflictTarget:FireServer(RootProbably.Name, Human, RootProbably, CurrentGun, Vector3.new(-0.13287943601608276, -0.226749986410141, -0.9648458957672119))
-                    else
-                        break
-                    end
-                else
-                    break
-                end
+                if not TargetModel:FindFirstChild("Humanoid") then break end
+                if not CurrentGun or TargetModel.Humanoid.Health <= 0 then break end
+                CurrentGun.GunScript_Server.InflictTarget:FireServer(RootProbably.Name, Human, RootProbably, CurrentGun, Vector3.new(0, 0, 0))
             end
         end
     end
 end
 
 local function KillAllMobs()
-    task.defer(function()
-        for i, v in pairs(MutlipMonsters:GetChildren()) do
-            for _, Monster in pairs(v:GetChildren()) do
-                task.defer(KillTarget, Monster)
+    for i, v in pairs(workspace:GetDescendants()) do
+        if v:IsA("Humanoid") then
+            if v.Health > 0 then
+                task.defer(KillTarget, v.Parent)
             end
         end
-    end)
-    task.defer(function()
-        for i, Monster in pairs(SingleMonsters:GetChildren()) do
-            task.defer(KillTarget, Monster)
+    end
+end
+
+local AuraTargetedAlready = {}
+
+local function KillNpcsInRange(Range : number)
+    if not Player.Character then return end
+    for i, v in pairs(workspace:GetDescendants()) do
+        if v:IsA("Humanoid") then
+            local CFTar = v.Parent:GetPivot()
+            local MyCf = Player.Character:GetPivot()
+            local Mag = (CFTar.Position - MyCf.Position).Magnitude
+            if Mag <= Range and v.Health > 0 and not AuraTargetedAlready[v.Parent] then
+                local DiedConn
+                AuraTargetedAlready[v.Parent] = true
+                task.defer(KillTarget, v.Parent)
+                DiedConn = v.Died:Connect(function()
+                    AuraTargetedAlready[v.Parent] = nil
+                    DiedConn:Disconnect()
+                end)
+            end
         end
-    end)
+    end
 end
 
 -- // Ui \\ --
@@ -83,5 +97,34 @@ KillAllMobsButton = MainTab:Button({
     KillAllMobs
 )
 
+KillAuraToggle = Section1:Toggle({
+        Title = "Kill Aura",
+        Description = "Change range for cooler killaura",
+        Default = false
+    }, 
+    function()
+        -- nothing duh
+    end
+)
+
+KillAuraRange = Section1:Slider({
+        Title = "Kill Aura Range",
+        Description = "Range of killaura.",
+        Default = 16,
+        Min = 1,
+        Max = 160
+    }, 
+    function()
+        -- nothing
+    end
+)
+
 -- // Loops \\ --
 
+task.defer(function()
+    while task.wait() do
+        if KillAuraToggle:getValue() then
+            KillNpcsInRange(KillAuraRange:getValue())
+        end
+    end
+end)
