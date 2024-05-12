@@ -48,7 +48,7 @@ local function KillTarget(TargetModel : Model)
             while task.wait() do
                 local CurrentGun = FoundGun()
                 if TargetModel:FindFirstChild("Humanoid") then
-                    if CurrentGun and not TargetModel.Humanoid.Health <= 0 then
+                    if CurrentGun and TargetModel.Humanoid.Health > 0 then
                         CurrentGun.GunScript_Server.InflictTarget:FireServer(RootProbably.Name, Human, RootProbably, CurrentGun, Vector3.new(0, 0, 0))
                     else
                         break
