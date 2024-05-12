@@ -1,4 +1,4 @@
---loadstring(game:HttpGet("https://raw.githubusercontent.com/dyyll/Dex-V5-leak/main/Dex%20V5.lua"))()
+-- loadstring(game:HttpGet("https://raw.githubusercontent.com/dyyll/Dex-V5-leak/main/Dex%20V5.lua"))()
 -- loadstring(game:HttpGet("https://raw.githubusercontent.com/onion1242w/heloxda/main/real.lua"))()
 -- dex
 -- loadstring(game:HttpGet("https://pastebin.com/raw/ZLfF3qa0"))()
@@ -73,8 +73,8 @@ local function KillAllMobs()
     for _, v in pairs(MutlipMonsters:GetChildren()) do
         for i, Monster in pairs(v:GetChildren()) do
             if Monster:FindFirstChild("Humanoid") then
-                if v.Humanoid.Health > 0 then
-                    task.defer(KillTarget, v)
+                if Monster.Humanoid.Health > 0 then
+                    task.defer(KillTarget, Monster)
                 end
             end
         end
