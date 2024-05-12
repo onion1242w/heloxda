@@ -59,14 +59,18 @@ local function KillTarget(TargetModel : Model)
 end
 
 local function KillAllMobs()
-    for i, v in pairs(MutlipMonsters:GetChildren()) do
-        for _, Monster in pairs(v:GetChildren()) do
+    task.defer(function()
+        for i, v in pairs(MutlipMonsters:GetChildren()) do
+            for _, Monster in pairs(v:GetChildren()) do
+                task.defer(KillTarget, Monster)
+            end
+        end
+    end)
+    task.defer(function()
+        for i, Monster in pairs(SingleMonsters:GetChildren()) do
             task.defer(KillTarget, Monster)
         end
-    end
-    for i, Monster in pairs(SingleMonsters:GetChildren()) do
-        task.defer(KillTarget, Monster)
-    end
+    end)
 end
 
 -- // Ui \\ --
