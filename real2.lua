@@ -10,7 +10,7 @@ local Fluent = loadstring(game:HttpGet("https://github.com/dawid-scripts/Fluent/
 
 local Window = Fluent:CreateWindow({
     Title = "Rexol world v0.0.1",
-    SubTitle = "by !!!",
+    SubTitle = "by noone",
     TabWidth = 160,
     Size = UDim2.fromOffset(580, 460),
     Acrylic = true, -- The blur may be detectable, setting this to false disables blur entirely
@@ -18,7 +18,7 @@ local Window = Fluent:CreateWindow({
     MinimizeKey = Enum.KeyCode.LeftControl -- Used when theres no MinimizeKeybind
 })
 
-local MainTab = Window:AddTab({ Title = "Main", Icon = "home" }),
+local MainTab = Window:AddTab({ Title = "Main", Icon = "home" })
 local Options = Fluent.Options
 
 local RepStor = game:GetService("ReplicatedStorage")
