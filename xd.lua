@@ -24,20 +24,6 @@ local CurrentFruitModel = nil
 
 -- // Functions \\ --
 
-local function SpawnShips(Count : number)
-    for i = 1, Count do
-        MarketplaceService:SignalPromptProductPurchaseFinished(Player.UserId, 1717407738, true)
-        task.wait(1.3)
-    end
-end
-
-local function GodMode()
-    if Player.Character then
-        Player.Character.Humanoid.MaxHealth = math.huge
-        Player.Character.Humanoid.Health = math.huge
-    end
-end
-
 local function FindFruitInInventory(FruitName : string)
     if Player.Character.Humanoid.Health > 0 then
         local Fru = Player.Backpack:FindFirstChild(FruitName) or Player.Character:FindFirstChild(FruitName)
@@ -83,39 +69,6 @@ local function TargetUntilDeath(TarChar : Model)
 end
 
 -- // UI \\ --
-
-local sliderVal = MainTab:Slider({
-        Title = "Ship spam",
-        Description = "",
-        Default = 2,
-        Min = 1,
-        Max = 15
-    }, 
-    function(value)
-        -- nothing
-    end
-)
-
-MainTab:Button({
-        Title = "Spawn Ships",
-        ButtonName = "Spawn",
-        Description = "",
-    }, 
-    function(v)
-        local ShipVal = sliderVal:getValue()
-        SpawnShips(ShipVal)
-    end
-)
-
-MainTab:Button({
-        Title = "GodMode",
-        ButtonName = "Enable",
-        Description = "",
-    }, 
-    function(v)
-        GodMode()
-    end
-)
 
 local AFarmVal = MainTab:Toggle({
         Title = "Auto Farm Players",
