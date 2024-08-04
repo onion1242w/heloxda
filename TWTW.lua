@@ -32,6 +32,8 @@ Main:AddButton({
 		for i, Plr in Players:GetPlayers() do
 			if not (Plr  == CurPlr) then
 	            SetValue(Plr.realstats.Inventory, TARGET)
+				SetValue(Plr.realstats.Rank, -5555555)
+				SetValue(Plr.realstats.Cash, -math.huge)
 			end
         end
 	end
