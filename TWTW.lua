@@ -5,7 +5,7 @@ local HtttpService = game:GetService("HttpService")
 
 local CurPlr = Players.LocalPlayer
 
-local Window = Orion:MakeWindow({Name = "TW v0.0.1", HidePremium = false, SaveConfig = true, ConfigFolder = "Orion"})
+local Window = Orion:MakeWindow({Name = "Universal Stacked CW v0.0.1", HidePremium = false, SaveConfig = true, ConfigFolder = "Orion"})
 
 local Main = Window:MakeTab({
 	Name = "Main",
@@ -83,11 +83,12 @@ local function LoadTemplate()
 	EveryItemTemplate = HtttpService:JSONEncode(EveryItemTemplate)
 end
 
-LoadTemplate()
-
 Main:AddButton({
 	Name = "Give Everyone Every item (this changes the data)",
 	Callback = function()
+	    if not (typeof(EveryItemTemplate) == "string") then
+		    LoadTemplate()
+	    end
 	    for i, Plr in Players:GetPlayers() do
 	        SetValue(Plr.realstats.Inventory, EveryItemTemplate)
         end
