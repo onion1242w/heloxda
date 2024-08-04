@@ -95,10 +95,15 @@ Main:AddButton({
 })
 
 Main:AddButton({
-	Name = "Kill Everyone (Equip Sword)",
+	Name = "Kill Every Player, Mobs, Mines (Equip Sword)",
 	Callback = function()
 	    for _, v in workspace:GetDescendants() do
 	        if v:IsA("Humanoid") then
+				if CurPlr.Character then
+					if v.Parent == CurPlr.Character then
+						continue
+					end
+				end
 		        local FoundSword = CurPlr.Backpack:FindFirstChild("Sword") or (CurPlr.Character and CurPlr.Character:FindFirstChild("Sword") or nil)
 				if FoundSword then
 					task.defer(function()
