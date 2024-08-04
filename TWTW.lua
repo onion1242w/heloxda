@@ -101,7 +101,9 @@ Main:AddButton({
 	        if v:IsA("Humanoid") then
 		        local FoundSword = CurPlr.Backpack:FindFirstChild("Sword") or (CurPlr.Character and CurPlr.Character:FindFirstChild("Sword") or nil)
 				if FoundSword then
-					FoundSword.RemoteFunction:InvokeServer("hit", {v, math.huge})
+					task.defer(function()
+					    FoundSword.RemoteFunction:InvokeServer("hit", {v, math.huge})
+				    end)
 				else
 				    Orion:MakeNotification({
 	                    Name = "Equip Sword!!!!",
