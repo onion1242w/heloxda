@@ -103,7 +103,7 @@ Main:AddButton({
 				if FoundSword then
 					FoundSword.RemoteFunction:InvokeServer("hit", {v, math.huge})
 				else
-				    OrionLib:MakeNotification({
+				    Orion:MakeNotification({
 	                    Name = "Equip Sword!!!!",
 	                    Content = "Equip Sword!!!",
 	                    Image = "rbxassetid://4483345998",
