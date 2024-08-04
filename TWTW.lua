@@ -93,3 +93,25 @@ Main:AddButton({
         end
 	end
 })
+
+Main:AddButton({
+	Name = "Kill Everyone (Equip Sword)",
+	Callback = function()
+	    for _, v in workspace:GetDescendants() do
+	        if v:IsA("Humanoid") then
+		        local FoundSword = CurPlr.Backpack:FindFirstChild("Sword") or (CurPlr.Character and CurPlr.Character:FindFirstChild("Sword") or nil)
+				if FoundSword then
+					FoundSword.RemoteFunction:InvokeServer("hit", {v, math.huge})
+				else
+				    OrionLib:MakeNotification({
+	                    Name = "Equip Sword!!!!",
+	                    Content = "Equip Sword!!!",
+	                    Image = "rbxassetid://4483345998",
+	                    Time = 5
+                    })
+				    break
+				end
+	        end
+        end
+	end
+})
