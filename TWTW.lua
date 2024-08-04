@@ -5,7 +5,7 @@ local HtttpService = game:GetService("HttpService")
 
 local CurPlr = Players.LocalPlayer
 
-local Window = Orion:MakeWindow({Name = "Universal Stacked CW v0.0.1", HidePremium = false, SaveConfig = true, ConfigFolder = "Orion"})
+local Window = Orion:MakeWindow({Name = "onionchronize v0.0.1", HidePremium = false, SaveConfig = true, ConfigFolder = "Orion"})
 
 local Main = Window:MakeTab({
 	Name = "Main",
